@@ -34,7 +34,6 @@ function App() {
       <div className='flex justify-center items-center flex-col h-screen '>
         <div id="select" className='w-auto h-auto bg-white flex flex-col rounded pl-16 pr-16 pt-5 pb-7'>
           <heading className='m-2 '>Currency Convertor</heading>
-
           {/* Display text  */}
           <h3>{FromValue} {currencies[FromCurrency]} equals </h3>
           <h1>{ToValue} {currencies[ToCurrency]}</h1>
