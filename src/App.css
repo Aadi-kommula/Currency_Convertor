@@ -1,0 +1,61 @@
+*{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+body{
+    background-color: rgba(71, 11, 71, 0.733);
+   
+}
+heading {
+    font-size: 42px;
+    font-weight: lighter;
+    margin:10px;
+}
+select,option,input{
+    border-radius: 5px;
+    padding: 3px;
+    border: none;
+    background-color: rgba(128, 128, 128, 0.178);
+}
+input{
+    width: 91%;
+    height: 40px;
+    margin: 0px 10px;
+    
+}
+input::placeholder{
+
+    padding: 10px;
+}
+h1{
+    font-size: 26px;
+    font-weight:normal;
+    color: rgba(0, 0, 0, 0.619);
+}
+h3{
+    margin: 0px 10px;
+    font-size: 18px;
+    color: gray;
+}
+h1{
+    margin: 0px  10px 10px 10px;
+}
+select{    
+    margin: 10px;
+}
+arrow{
+    font-size: 40px;
+    padding: 0px 20px;
+    font-weight: lighter;
+    color: rgba(128, 128, 128, 0.806);
+}
+
+
+button{
+    cursor: pointer;
+    width: 91%;
+    height: 40px;
+    margin: 0px 10px;
+}
+button:hover{
+    background-color: rgba(128, 128, 128, 0.447);
+}
