@@ -1,70 +1,107 @@
-import React from 'react'
-import { useEffect } from 'react'
-import { useState } from 'react'
-import './App.css'
+import React, { useEffect, useState } from 'react';
+import './App.css';
+
 function App() {
-  const [currencies, setcurrencies] = useState('')
-  const [FromCurrency, setFromCurrency] = useState('1inch')
-  const [ToCurrency, setToCurrency] = useState('1inch')
-  const [FromValue, setFromValue] = useState(1)
-  const [ToValue, setToValue] = useState(1)
+  const [currencies, setCurrencies] = useState({});
+  const [FromCurrency, setFromCurrency] = useState('1inch');
+  const [ToCurrency, setToCurrency] = useState('1inch');
+  const [FromValue, setFromValue] = useState(1);
+  const [ToValue, setToValue] = useState(1);
 
-  //fecthing currency countries data
+  const [FromCurrency1, setFromCurrency1] = useState('1inch');
+  const [ToCurrency1, setToCurrency1] = useState('1inch');
+  const [FromValue1, setFromValue1] = useState(1);
 
+  // Fetching currency countries data
   useEffect(() => {
     fetch('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies.json')
       .then((response) => response.json())
       .then((data) => {
-        setcurrencies(data)
-      })
-  }, [])
+        setCurrencies(data);
+      });
+  }, []);
 
-  //Caluclating currency values 
+  // Update state values when the user clicks "Fetch Data"
+  const handleFetchData = () => {
+    setFromCurrency(FromCurrency1);
+    setToCurrency(ToCurrency1);
+    setFromValue(FromValue1);
+  };
 
-  function Caluclate() {
-    fetch(`https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/${FromCurrency}.json`)
-      .then((response) => response.json())
-      .then((data) => {
-        setToValue(FromValue * data[FromCurrency][ToCurrency])
+  // Calculate ToValue whenever FromCurrency, ToCurrency, or FromValue changes
+  useEffect(() => {
+    if (FromCurrency && ToCurrency && FromValue) {
 
-      })
-  }
+      fetch(`https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/${FromCurrency}.json`)
+        .then((response) => response.json())
+        .then((data) => {
+          if(FromValue>0){
+          const formula = data[FromCurrency][ToCurrency];
+          setToValue(FromValue * formula);
+          }
+          else{
+            alert('Enter Positive values only')
+            setFromValue(1)
+            document.getElementById('inputbox').value=''
+          
+          }
+        })
+        .catch((error) => {
+          console.error('Error fetching conversion rate:', error);
+        });
+    }
+
+  }, [FromCurrency, ToCurrency, FromValue]);
+
   return (
-    <>
-      <div className='flex justify-center items-center flex-col h-screen '>
-        <div id="select" className='w-auto h-auto bg-white flex flex-col rounded pl-16 pr-16 pt-5 pb-7'>
-          <heading className='m-2 '>Currency Convertor</heading>
-          {/* Display text  */}
-          <h3>{FromValue} {currencies[FromCurrency]} equals </h3>
-          <h1>{ToValue} {currencies[ToCurrency]}</h1>
+    <div className='flex justify-center items-center flex-col h-screen'>
+      <div id="select" className='w-auto h-auto bg-white flex flex-col rounded pl-16 pr-16 pt-5 pb-7'>
+        <heading className='m-2'>Currency Convertor</heading>
+        {/* Display text */}
+        <h3>{FromValue} {currencies[FromCurrency]} equals </h3>
+        <h1>{ToValue} {currencies[ToCurrency]}</h1>
 
-          <div className="flex-row">
-            <input type="tel"
-              onChange={(e) => { setFromValue(e.target.value) }}
-              placeholder='Enter the amount of currency '
-              name="input from" id="" /><br />
-              
-            <select className='w-30 h-10 bg-white' name="" id="from" onChange={(e) => setFromCurrency(e.target.value)}>
-              {Object.entries(currencies).map(([currencyCode, CurrencycCountry]) =>
-                <option key={currencyCode} value={currencyCode}>
-                  {CurrencycCountry}
-                </option>)}
-            </select>
-            <arrow>→</arrow>
-            <select className='w-30 h-10 mx-3 bg-white' name="" id="from" onChange={(e) => { setToCurrency(e.target.value) }}>
-              {Object.entries(currencies).map(([currencyCode, CurrencycCountry]) =>
-                <option key={currencyCode} value={currencyCode}>
-                  {CurrencycCountry}
-                </option>)}
-            </select>
-            {/* <input className='bg-white m-2' type="tel" value={ToValue} disabled name="input from" id="" /> */}
-          </div>
-          <button className='bg-gray-200 ' onClick={Caluclate} >Fetch Data</button>
+        <div className="flex-col justify-center items-center">
+          <input
+            type="number"
+            min={1}
+            onChange={(e) => setFromValue1(e.target.value)}
+            placeholder='Enter the amount of currency'
+            name="input from"
+            id='inputbox'
+          /><br />
+
+          <select
+            className='w-30 h-10 bg-white'
+            name="from"
+            id="from"
+            onChange={(e) => setFromCurrency1(e.target.value)}
+          >
+            {Object.entries(currencies).map(([currencyCode, CurrencycCountry]) => (
+              <option key={currencyCode} value={currencyCode}>
+                {CurrencycCountry}
+              </option>
+            ))}
+          </select>
+          <arrow>→</arrow>
+          <select
+            className='w-30 h-10 mx-3 bg-white'
+            name="to"
+            id="to"
+            onChange={(e) => setToCurrency1(e.target.value)}
+          >
+            {Object.entries(currencies).map(([currencyCode, CurrencycCountry]) => (
+              <option key={currencyCode} value={currencyCode}>
+                {CurrencycCountry}
+              </option>
+            ))}
+          </select>
         </div>
-
+        <button onClick={handleFetchData}>Fetch Data</button>
+        <img src="/graph.jpg" alt="graph" />
       </div>
-    </>
-  )
+    </div>
+  );
 }
 
 export default App;

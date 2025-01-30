@@ -1,63 +1,83 @@
-*{
+* {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
-body{
-    background-color: #A53279;
-   
+
+body {
+    background: linear-gradient(to bottom, #A53279, #543e6d);
+
+
 }
+
 heading {
     font-size: 42px;
-    font-weight:200;
-    margin:10px;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 200;
+    margin: 10px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: #000000a0;
 }
-select,option,input{
+
+select,
+option,
+input {
     border-radius: 5px;
     padding: 3px;
     border: none;
     background-color: rgba(128, 128, 128, 0.178);
 }
-input{
-    width: 91%;
+
+input {
+    width: 77%;
     height: 40px;
-    margin: 0px 10px;
-    
+    margin: 2px 10px;
+
 }
-input::placeholder{
+
+input::placeholder {
 
     padding: 10px;
 }
-h1{
+
+h1 {
     font-size: 26px;
-    font-weight:normal;
+    font-weight: normal;
     color: rgba(0, 0, 0, 0.767);
 }
-h3{
+
+h3 {
     margin: 0px 10px;
     font-size: 18px;
     color: gray;
 }
-h1{
-    margin: 0px  10px 10px 10px;
+
+h1 {
+    margin: 0px 10px 10px 10px;
 }
-select{    
+
+select {
     margin: 10px;
 }
-arrow{
+
+arrow {
     font-size: 40px;
     padding: 0px 20px;
     font-weight: lighter;
     color: rgba(128, 128, 128, 0.806);
 }
+img{
+    margin: 5px;
+    width: 400px;
+}
 
-
-button{
+button {
     cursor: pointer;
-    width: 91%;
+    width: 77%;
+    border-radius: 5px;
+    background-color: #684d87;
+    color: #fff;
     height: 40px;
     margin: 0px 10px;
 }
-button:hover{
-    background-color: rgba(128, 128, 128, 0.447);
+
+button:hover {
+    background-color: #493560;
 }
