@@ -31,30 +31,28 @@ function App() {
   // Calculate ToValue whenever FromCurrency, ToCurrency, or FromValue changes
   useEffect(() => {
     if (FromCurrency && ToCurrency && FromValue) {
-
       fetch(`https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/${FromCurrency}.json`)
         .then((response) => response.json())
         .then((data) => {
-          if(FromValue>0){
           const formula = data[FromCurrency][ToCurrency];
-          setToValue(FromValue * formula);
-          }
-          else{
-            alert('Enter Positive values only')
-            setFromValue(1)
-            document.getElementById('inputbox').value=''
-          
-          }
+          setToValue(FromValue * formula);    
         })
         .catch((error) => {
           console.error('Error fetching conversion rate:', error);
         });
     }
-
   }, [FromCurrency, ToCurrency, FromValue]);
 
+  const validateInput = (value) => {
+    if (!/^\d*\.?\d*$/.test(value)) {
+      alert('Please enter a valid positive number');
+      return false;
+    }
+    return true;
+  };
+
   return (
-    <div className='flex justify-center items-center flex-col h-screen'>
+    <div className='container flex justify-center items-center flex-col h-screen'>
       <div id="select" className='w-auto h-auto bg-white flex flex-col rounded pl-16 pr-16 pt-5 pb-7'>
         <heading className='m-2'>Currency Convertor</heading>
         {/* Display text */}
@@ -63,9 +61,15 @@ function App() {
 
         <div className="flex-col justify-center items-center">
           <input
-            type="number"
+            type="text"
             min={1}
-            onChange={(e) => setFromValue1(e.target.value)}
+            onBlur={(e) => {
+              if (!validateInput(e.target.value)) {
+                e.target.value = '';
+              } else {
+                setFromValue1(e.target.value);
+              }
+            }}
             placeholder='Enter the amount of currency'
             name="input from"
             id='inputbox'
